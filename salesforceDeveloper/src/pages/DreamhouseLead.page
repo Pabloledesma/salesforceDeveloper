@@ -1,0 +1,29 @@
+<apex:page controller="DreamhouseProspects" standardStylesheets="{!isClassic}" applyBodyTag="{!isClassic}">
+	<apex:outputPanel rendered="{! !isClassic}">
+		<apex:slds />
+	</apex:outputPanel>
+	<div class="slds-scope">
+		<apex:pageBlock >
+			<apex:form >
+				<apex:sectionHeader title="Leads" subtitle="Home" />
+				<div style="text-align: center">
+					<apex:commandButton action="{!URLFOR($Action.Lead.New)}" value="New" styleClass="slds-button slds-button--neutral" />
+				</div>
+				<apex:outputLabel value="Sort: " for="SortList" />
+				<apex:selectList value="{! sortOrder}" size="1" id="SortList">
+					<apex:selectOption itemValue="LastName" />
+					<apex:selectOption itemValue="FirstName" />
+				</apex:selectList>
+				<apex:commandButton value="Sort Table" action="{!sortList}" reRender="leads_list" />
+				<apex:pageBlockTable value="{!leads}" var="ct" id="leads_list" styleClass="slds-table slds-table--bordered slds-table--cell-buffer">
+					<apex:column headerValue="First Name" headerClass="slds-text-title_caps">
+						<apex:outputLink value="{!ct.Id}">{!ct.FirstName}</apex:outputLink>
+					</apex:column>
+					<apex:column value="{!ct.LastName}" headerClass="slds-text-title_caps"/>
+					<apex:column value="{!ct.Email}" headerClass="slds-text-title_caps"/>
+					<apex:column value="{!ct.Phone}" headerClass="slds-text-title_caps"/>
+				</apex:pageBlockTable>
+			</apex:form>
+		</apex:pageBlock>
+	</div>
+</apex:page>

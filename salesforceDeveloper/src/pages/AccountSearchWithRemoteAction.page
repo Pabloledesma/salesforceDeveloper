@@ -1,0 +1,69 @@
+<apex:page controller="AccountSearchRemoting">  
+  <!-- <apex:form >  With Visualforce Remoting, we do not even need the form tag any more-->
+       <style>
+             tr.dataRow {
+               background-color:white;
+             }
+             tr.dataRow:hover {
+               background-color: #e3f3ff;
+             };
+         </style>
+       <script>
+       
+            handleButtonClick = function() {
+                  // First get the value in the searchField input field
+                  var searchTerm = document.getElementById("searchField").value;
+                  
+                  // Call the @RemoteAction method instead of the actionFunction name
+                  Visualforce.remoting.Manager.invokeAction( '{!$RemoteAction.AccountSearchRemoting.searchAccounts}', searchTerm, handleResult );
+            };
+            
+            handleResult = function(results, event) {
+                // Make sure the @RemoteAction has completed, in which
+                // case the event status would be true
+                if(event.status) {
+                    if(event.type === "exception") {
+                        document.getElementById("responseErrors").innerHTML = event.message;
+                    } else {
+                        var container = document.getElementById("resultsArea"), html = [];
+                        html.push("<tr class='headerRow'>");
+                        html.push("<td class='headerRow'>Account Name</td>");
+                        html.push("<td class='headerRow'>Account Number</td>");
+                        html.push("<td class='headerRow'>Industry</td>");
+                        html.push("<td class='headerRow'>Phone</td>");
+                        html.push("<td class='headerRow'>Website</td>");
+                        html.push("</tr>");
+                        for (var i=0, j=results.length; i<j; i++) {
+                            html.push("<tr class='dataRow'>");
+                            html.push("<td class='dataCell'>" + results[i].Name + "</td>");
+                            html.push("<td class='dataCell'>" + results[i].AccountNumber + "</td>");
+                            html.push("<td class='dataCell'>" + results[i].Industry + "</td>");
+                            html.push("<td class='dataCell'>" + results[i].Phone + "</td>");
+                            html.push("<td class='dataCell'>" + results[i].Website + "</td>");
+                            html.push("</tr>");
+                        }
+                         container.innerHTML = html.join("");
+                    }
+                }
+            }
+            
+        </script>
+      
+      <apex:pageBlock title="Search Result">  
+          <apex:pageBlockButtons location="top">
+              <input id="searchField" type="text" />
+              <button type="button" onclick="handleButtonClick();">Search Accounts</button>
+          </apex:pageBlockButtons>
+          
+          <div id="responseErrors"></div>
+
+          <table class="list" cellpadding="0" cellspacing="0">
+            <thead></thead>
+            <tfoot></tfoot>
+            <tbody id="resultsArea"></tbody>
+          </table>
+        
+      </apex:pageBlock>   
+      
+  <!-- </apex:form>   -->
+</apex:page>

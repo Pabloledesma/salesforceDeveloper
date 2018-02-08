@@ -1,0 +1,62 @@
+<apex:page sidebar="false" >
+  <!-- Begin Default Content REMOVE THIS -->
+  <h1>This is my second page in force platform</h1>
+  
+  <!-- End Default Content REMOVE THIS -->
+  <apex:pageBlock title="A Block Title">
+      <apex:pageBlockSection title="Section Title">
+          Content...
+      </apex:pageBlockSection>
+      
+      <apex:pageBlockSection title="Other Section">
+          Other Content...
+      </apex:pageBlockSection>
+      
+       <apex:tabPanel switchType="client" selectedTab="name2" id="theTabPanel">
+        <apex:tab label="One" name="name1" id="tabOne">content for tab one</apex:tab>
+        <apex:tab label="Two" name="name2" id="tabTwo">content for tab two</apex:tab>
+       </apex:tabPanel>
+       
+       <apex:toolbar id="theToolbar">
+
+        <apex:outputText value="Sample Toolbar"/>
+
+        <apex:toolbarGroup itemSeparator="line" id="toobarGroupLinks">
+
+            <apex:outputLink value="http://www.salesforce.com">
+
+              salesforce
+
+            </apex:outputLink>
+
+            <apex:outputLink value="http://developer.salesforce.com">
+
+             apex developer network
+
+            </apex:outputLink>
+
+        </apex:toolbarGroup>
+
+        <apex:toolbarGroup itemSeparator="line" location="right" id="toobarGroupForm">
+
+            <apex:form id="theForm">
+
+                <apex:inputText id="theInputText">Enter Text</apex:inputText>
+
+                <apex:commandLink value="search" id="theCommandLink"/>
+
+            </apex:form>
+
+        </apex:toolbarGroup>
+
+    </apex:toolbar>
+  </apex:pageBlock>
+  
+  <apex:panelGrid columns="3" id="theGrid">
+        <apex:outputText value="First" id="theFirst"/>
+        <apex:outputText value="Second" id="theSecond"/>
+        <apex:outputText value="Third" id="theThird"/>
+        <apex:outputText value="Fourth" id="theFourth"/>
+    </apex:panelGrid>
+  
+</apex:page>

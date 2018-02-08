@@ -1,0 +1,29 @@
+public with sharing class DreamhouseProspects {
+	public DreamhouseProspects() {
+		
+	}
+
+	public String sortOrder {get; set;}
+
+	public Boolean getIsClassic(){
+		return (
+			UserInfo.getUiThemeDisplayed() == 'Theme3' && 
+			ApexPages.currentPage().getParameters().get('beLightning') == null
+		);
+	}
+
+	public List<Lead> getLeads(){
+		if(sortOrder == null){
+			sortOrder = 'LastName';
+		}
+
+		return Database.query(
+			'SELECT Description,Email,FirstName,Id,LastName,Phone FROM Lead WHERE Company=\'Dreamhouse\' ORDER BY ' + sortOrder
+		);
+	}
+
+	public pageReference sortList(){
+		getLeads();
+		return null;
+	}
+}

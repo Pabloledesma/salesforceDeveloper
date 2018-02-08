@@ -1,0 +1,7 @@
+<apex:page controller="Counter">
+<h1>The Counter</h1>
+<apex:form >
+	<apex:commandButton action="{!buttonClicked}" value="Click Here!" />
+	<h3 style="color:blue">{!clickCount}</h3>
+</apex:form>
+</apex:page>

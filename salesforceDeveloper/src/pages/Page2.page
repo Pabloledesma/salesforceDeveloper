@@ -1,0 +1,22 @@
+<apex:page standardController="Project__c" extensions="ProjectCreateExtension" title="Page2">
+	<apex:form >
+		<apex:pageBlock title="Sprint Details">
+			<apex:pageBlockButtons >
+                <apex:commandButton action="{!SaveSprint}" value="Save"/>
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection title="Sprint Form" columns="2">
+				<apex:inputField value="{!sprint.Name}"/>
+				<apex:inputField value="{!sprint.Start_Date__c}"/>		
+            </apex:pageBlockSection>
+            <apex:pageBlockTable value="{!sprints}" var="s">
+            	<apex:column value="{!s.Name}" />
+            	<apex:column value="{!s.Start_Date__c}" />
+                <apex:column headerValue="Action">
+                    <apex:commandLink action="{!ToPage3}" value="Add Stories">
+                        <apex:param value="{!s.Id}" name="Selected" assignTo="{!selectedSprint}" />
+                    </apex:commandLink>
+                </apex:column>
+            </apex:pageBlockTable>
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

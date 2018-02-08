@@ -1,0 +1,282 @@
+<apex:page docType="html-5.0" showHeader="false" sidebar="false" applyHtmlTag="false" applyBodyTag="false" standardController="Opportunity">
+    
+<apex:stylesheet value="{!URLFOR($Resource.sweetAlert2, 'sweetalert2.min.css')}"/>
+<apex:includeScript value="{!URLFOR($Resource.sweetAlert2, 'sweetalert2.min.js')}" />
+    
+<apex:remoteObjects jsNamespace="RemoteObjectModel">
+    <apex:remoteObjectModel name="Opportunity" fields="Id,Type,Amount,LeadSource,Description,CloseDate,NextStep,StageName,Probability">
+        <apex:remoteObjectField name="Country__c" jsShorthand="Country" />
+        <apex:remoteObjectField name="OrderNumber__c" jsShorthand="OrderNumber" />
+    </apex:remoteObjectModel>
+</apex:remoteObjects>
+   
+    
+   
+<html xmlns:v-on="http://fake.org/fake" xmlns:v-bind="http://fake.org/fake" xmlns:v-if="http://fake.org/fake">
+    <head>
+        <title>Opportunities</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.4.0/css/bulma.min.css" />
+    </head>
+    <body>
+       
+    	<div id="vueForm" class="container">
+            
+            <div class="columns">
+                <div class="column"> 
+                                       
+                    <div class="field is-horizontal">
+                      <div class="field-label is-normal">
+                        <label class="label">Opportunity Type</label>
+                      </div>
+                      <div class="field-body">
+                        <div class="field">
+                          <div class="control">
+                              <div class="select is-fullwidth">
+                                  <select v-model="opportunityType" name="Type">
+                                      <option value="Existing Customer - Upgrate">Existing Customer - Upgrate</option>
+                                      <option value="Existing Customer - Replacement">Existing Customer - Replacement</option>
+                                      <option value="Existing Customer - Downgrade">Existing Customer - Downgrade</option>
+                                      <option value="New Customer">New Customer</option>
+                                  </select>
+                              </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="field is-horizontal">
+                      <div class="field-label is-normal">
+                        <label class="label">Lead Source</label>
+                      </div>
+                      <div class="field-body">
+                        <div class="field">
+                          <div class="control">
+                            <input class="input" type="text" placeholder="Lead Source" v-model="leadSource" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>                    
+                  	
+                    <div class="field is-horizontal">
+                      <div class="field-label is-normal">
+                        <label class="label">Country</label>
+                      </div>
+                      <div class="field-body">
+                        <div class="field">
+                          <div class="control">
+                            <input class="input" type="text" placeholder="Country" v-model="country" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>      
+                    
+                    <div class="field is-horizontal">
+                      <div class="field-label is-normal">
+                        <label class="label">Order Number</label>
+                      </div>
+                      <div class="field-body">
+                        <div class="field">
+                          <div class="control">
+                            <input 
+                            	v-bind:class="{'input': true, 'is-danger': !orderNumber}" 
+                            	type="text" 
+                            	placeholder="Order Number" 
+                            	v-model="orderNumber" />
+                          </div>
+                           <p class="help is-danger" v-if="!orderNumber">Order number is required</p>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div class="field is-horizontal">
+                      <div class="field-label is-normal">
+                        <label class="label">Description</label>
+                      </div>
+                      <div class="field-body">
+                        <div class="field">
+                          <div class="control">
+                             <input 
+                            	v-bind:class="{'input': true, 'is-danger': !description}" 
+                            	type="text" 
+                            	placeholder="Description" 
+                            	v-model="description" />
+                          </div>
+                           <p class="help is-danger" v-if="!description">Description is required</p>
+                        </div>
+                      </div>
+                    </div>      
+                    
+				</div><!-- column -->  
+                 
+                <div class="column">
+                    
+                     <div class="field is-horizontal">
+                      <div class="field-label is-normal">
+                        <label class="label">Amount</label>
+                      </div>
+                      <div class="field-body">
+                        <div class="field">
+                          <div class="control">
+                             <input 
+                            	v-bind:class="{'input': true, 'is-danger': !amount}" 
+                            	type="text" 
+                            	placeholder="Amount" 
+                            	v-model="amount" />
+                          </div>
+                            <p class="help is-danger" v-if="!amount">Amount is required</p>
+                        </div>
+                      </div>
+                    </div>      
+                   
+                     <div class="field is-horizontal">
+                      <div class="field-label is-normal">
+                        <label class="label">Next Step</label>
+                      </div>
+                      <div class="field-body">
+                        <div class="field">
+                          <div class="control">
+                            <input class="input" type="text" placeholder="Next Step" v-model="nextStep" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>      
+                    
+                     <div class="field is-horizontal">
+                      <div class="field-label is-normal">
+                        <label class="label">Stage</label>
+                      </div>
+                      <div class="field-body">
+                        <div class="field">
+                          <div class="control">
+                              <div class="select is-fullwidth">
+                                  <select v-model="stage" name="StageName">
+                                      <option value="Prospecting">Prospecting</option>
+                                      <option value="Qualification">Qualification</option>
+                                      <option value="Needs Analysis">Needs Analysis</option>
+                                      <option value="Value Proposition">Value Proposition</option>
+                                      <option value="Id. Desition Makers">Id. Desition Makers</option>
+                                      <option value="Perception Analysis">Perception Analysis</option>
+                                      <option value="Proposal/Price Quote">Proposal/Price Quote</option>
+                                      <option value="Negotiation/Review">Negotiation/Review</option>
+                                      <option value="Closed Won">Closed Won</option>
+                                      <option value="Closed Lost">Closed Lost</option>
+                                  </select>
+                              </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div> 
+                    
+                    
+                     <div class="field is-horizontal">
+                      <div class="field-label is-normal">
+                        <label class="label">Probability</label>
+                      </div>
+                      <div class="field-body">
+                        <div class="field">
+                          <div class="control">
+                             <input class="input" type="text" placeholder="Probability" v-model="probability" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>      
+                </div>
+                        	
+        	</div><!-- columns -->
+                
+            
+            <div class="field is-grouped">
+                
+                <p class="control">
+                    <button class="button is-primary" v-on:click="addUpdateOpportunity">Edit</button>
+                </p>
+                <p class="control">
+                    <button class="button is-link">Cancel</button>
+                </p>
+            </div>
+            
+        </div><!-- container -->
+        
+ 
+  	<script src="https://unpkg.com/vue"></script>
+  	<script>
+  	new Vue({
+    el: '#vueForm',
+    data: {
+    	opportunityId: '{!Opportunity.Id}',
+        opportunityType: '{!Opportunity.Type}',
+        amount: '{!Opportunity.Amount}',
+        leadSource: '{!Opportunity.LeadSource}',
+        country: '{!Opportunity.Country__c}',
+        orderNumber: '{!Opportunity.OrderNumber__c}',
+        description: '{!Opportunity.Description}',
+        nextStep: '{!Opportunity.NextStep}',
+        stage: '{!Opportunity.StageName}',
+        probability: '{!Opportunity.Probability}',
+        messages: {
+            orderNumber: 'Order number is required',
+            description: 'Description is required',
+            amount: 'Amount is required'
+        }
+    },
+    
+    methods: {
+        
+        addUpdateOpportunity(){
+        	if( this.validate() ){
+        
+    			var op = new RemoteObjectModel.Opportunity({
+                    
+                    Type: this.opportunityType,
+        			Amount: this.amount,
+        			LeadSource: this.leadSource,
+        			Country: this.country,
+        			OrderNumber: this.orderNumber,
+        			Description: this.description,
+        			NextStep: this.nextStep,
+        			StageName: this.stage,
+        			Probability: this.probability
+    			});
+        
+                //Verify if is an update or create action
+                if( this.opportunityId != '' || this.opportunityId != null )
+                {
+                    op.set('Id', this.opportunityId);
+                    op.update((error, Ids) => {
+                        if(error) {
+                            console.log(error);
+                        } else {
+                            swal(
+                              'Good job!',
+                              'Opportunity updated!',
+                              'success'
+                            );
+                        }
+                        
+                    });
+                }
+            }  
+           	
+    	},
+     
+        validate(){
+        	if( !this.orderNumber || !this.description || !this.amount){
+           		var errors = '<ul>';
+           		if(!this.orderNumber) errors += '<li>' + this.messages.orderNumber + '</li>';
+           		if(!this.description) errors += '<li>' + this.messages.description + '</li>';
+           		if(!this.amount) errors += '<li>' + this.messages.amount + '</li>';
+           		errors += '</ul>';
+   				swal('Ups!', errors, 'error');
+   				return false;
+   			}
+        
+        	return true;
+        }
+    }
+})
+  	</script>
+    </body>
+</html>
+   
+ 
+</apex:page>

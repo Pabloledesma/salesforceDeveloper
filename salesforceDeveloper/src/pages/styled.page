@@ -1,0 +1,28 @@
+<apex:page standardController="Account">
+<apex:stylesheet value=" {! URLFOR($Resource.Styles, 'styles.css')} "/>
+<apex:includeScript value="{! $Resource.jquery}" />
+<script>
+    $().ready(function(){
+        
+    });
+</script>
+
+ <style>
+body {font-family: Arial Unicode MS;}
+h1 {color:red;}
+</style> 
+  <h1>My Styled Page</h1>
+  <p>Great!</p>
+  
+  <apex:dataTable value="{!account.contacts}" var="item">
+    <apex:column value="{!item.name}"/>
+    <apex:column value="{!item.phone}"/>
+  </apex:dataTable>
+  
+  <ul>
+      <apex:repeat value="{! account.contacts}" var="item">
+          <li><apex:outputText value="{! item.name}"/></li>
+      </apex:repeat>
+  </ul>
+  
+</apex:page>

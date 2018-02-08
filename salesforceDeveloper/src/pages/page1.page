@@ -1,0 +1,3 @@
+<apex:page standardController="Project__c" extensions="ProjectCreateExtension">
+    
+</apex:page>

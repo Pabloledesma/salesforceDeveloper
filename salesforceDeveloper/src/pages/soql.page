@@ -1,0 +1,7 @@
+<apex:page >
+<!-- Begin Default Content REMOVE THIS -->
+<h1>Number of child line items:</h1>
+This is your new Page
+
+<!-- End Default Content REMOVE THIS -->
+</apex:page>

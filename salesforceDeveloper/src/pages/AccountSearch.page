@@ -1,0 +1,39 @@
+<apex:page controller="AccountSearchController" tabStyle="Account">  
+  <apex:form >  
+  
+      <apex:pageBlock title="Search Result">  
+          <apex:pageMessages />
+          <apex:pageBlockButtons location="top">
+              <apex:inputText value="{!searchstring}" label="Input"/>&nbsp;   
+              <apex:commandButton value="Search Accounts" action="{!search}"/>
+              <apex:commandButton value="<<" action="{!setCon.First}" rendered="{!setCon.hasPrevious}"/>
+              <apex:commandButton value="<" action="{!setCon.Previous}" rendered="{!setCon.hasPrevious}"/>
+              <apex:commandButton value=">" action="{!setCon.Next}" rendered="{!setCon.hasNext}"/>
+              <apex:commandButton value=">>" action="{!setCon.Last}" rendered="{!setCon.hasNext}"/>  
+          </apex:pageBlockButtons>
+          
+          <apex:pageBlockSection title="Results" collapsible="true" rendered="{!setCon.hasPrevious || setCon.hasNext}">
+              <apex:outputText >
+                  {!(setCon.pageNumber * setCon.pageSize) + 1 - setCon.pageSize} 
+                  through 
+                  {!IF((setCon.pageNumber * setCon.pageSize) > setCon.ResultSize, setCon.ResultSize, (setCon.pageNumber * setCon.pageSize))}
+                  of
+                  {!setCon.resultSize}
+                  records.
+              </apex:outputText>
+              
+          </apex:pageBlockSection>
+      
+          <apex:pageblockTable value="{!acc}" var="a">  
+              <apex:column headerValue="Name">  
+                  <apex:outputlink value="/{!a.id}">{!a.Name}</apex:outputlink>  
+              </apex:column>  
+              <apex:column headerValue="Account Number" value="{!a.AccountNumber}"/>  
+              <apex:column headerValue="Industry" value="{!a.Industry}"/>  
+              <apex:column headerValue="Phone" value="{!a.Phone}"/>  
+              <apex:column headerValue="Website" value="{!a.Website}"/>  
+          </apex:pageBlockTable>     
+      </apex:pageBlock>   
+      
+  </apex:form>  
+</apex:page>

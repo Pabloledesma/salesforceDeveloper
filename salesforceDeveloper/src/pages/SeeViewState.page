@@ -1,0 +1,7 @@
+<apex:page showHeader="false" standardStylesheets="false">
+    <apex:form >
+    	<apex:pageBlock >
+        	<apex:outputText >Ya casi es hora de ir a dormir!!</apex:outputText>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

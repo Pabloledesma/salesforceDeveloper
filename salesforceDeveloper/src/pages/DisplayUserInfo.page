@@ -1,0 +1,6 @@
+<apex:page >
+    <apex:pageBlock >
+        <p>First Name: {!$User.FirstName}</p>
+        <p>Last Name: {!$User.LastName}</p>
+    </apex:pageBlock>
+</apex:page>

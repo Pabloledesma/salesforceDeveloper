@@ -1,0 +1,27 @@
+<apex:page standardController="Account">
+    <apex:pageBlock title="My Account Contacts">
+        <apex:pageBlockTable value="{! account.contacts}" var="item">
+            <apex:column value="{! item.name}"/>
+            <apex:column value="{! item.title}"/>
+            <apex:column value="{! item.email}"/>
+            <apex:column value="{! item.phone}"/>
+        </apex:pageBlockTable>
+        
+        <apex:dataTable value="{!account.Contacts}" var="contact" cellPadding="4" border="1">
+            <apex:column >
+                <apex:facet name="header">Name</apex:facet>
+                        {!contact.Name}
+            </apex:column>
+            <apex:column >
+                <apex:facet name="header">Phone</apex:facet>
+                        {!contact.Phone}
+            </apex:column>
+        </apex:dataTable>
+        <apex:ListViews type="Case" />
+        <apex:enhancedList type="Account" height="300" rowsPerPage="10" id="AccountList" />
+        <apex:enhancedList type="Lead" height="300" rowsPerPage="25" id="LeadList" customizable="False" />
+        
+        
+        
+    </apex:pageBlock>
+</apex:page>

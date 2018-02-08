@@ -1,0 +1,37 @@
+<apex:page controller="AccountSearchController" tabStyle="Account">   
+  <apex:form >  
+       <script>
+       
+            handleButtonClick = function() {
+                  searchAccounts(document.getElementById('searchField').value);
+            };
+
+        </script>
+      
+      <apex:pageBlock title="Search Result">  
+          <apex:pageMessages />
+          <apex:actionStatus id="searchNotify" startText="Searching.." stopText=" " />
+          <apex:actionFunction name="searchAccounts" action="{!search}" status="searchNotify" reRender="resultArea" >
+                <apex:param name="searchString" assignTo="{!searchString}" value=""/>
+          </apex:actionFunction>
+            
+          <apex:pageBlockButtons location="top">
+              <input id="searchField" type="text" />
+              <button type="button" onclick="handleButtonClick();">Search Accounts</button>
+          </apex:pageBlockButtons>
+      
+          <apex:outputPanel id="resultArea" >
+              <apex:pageblockTable value="{!acc}" var="a">  
+                  <apex:column headerValue="Name">  
+                      <apex:outputlink value="/{!a.id}">{!a.Name}</apex:outputlink>  
+                  </apex:column>  
+                  <apex:column headerValue="Account Number" value="{!a.AccountNumber}"/>  
+                  <apex:column headerValue="Industry" value="{!a.Industry}"/>  
+                  <apex:column headerValue="Phone" value="{!a.Phone}"/>  
+                  <apex:column headerValue="Website" value="{!a.Website}"/>  
+              </apex:pageBlockTable>  
+          </apex:outputPanel>   
+      </apex:pageBlock>   
+      
+  </apex:form>  
+</apex:page>

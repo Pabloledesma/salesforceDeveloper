@@ -1,0 +1,26 @@
+<apex:page standardStylesheets="false" showHeader="false" sidebar="false" standardController="Mercancia__c" recordSetVar="Productos">
+	<apex:stylesheet value="{!URLFOR($Resource.styles, 'styles.css')}"/>
+	
+	<h1>Inventario Tienda Virtual</h1>
+	
+	<apex:form >
+	    <apex:dataTable value="{!Productos}" var="pitem" rowClasses="odd,even">
+	        <apex:column headerValue="Product">
+		        <apex:outputText value="{!pitem.name}" />
+	        </apex:column>
+	        <apex:column headerValue="Inventario">
+		        <apex:outputField value="{!pitem.Cantidad__c}" />
+	        </apex:column>
+	        <apex:column headerValue="">
+		        <apex:outputField value="{!pitem.Cantidad__c}">
+					<apex:inlineEditSupport event="ondblclick" showOnEdit="update"/>
+				</apex:outputField>
+			</apex:column>
+		<apex:commandLink action="{!next}" value="Siguiente" rendered="{!hasNext}" />
+	    </apex:dataTable>
+	    <br/>
+		<apex:commandButton id="update" action="{!quicksave}" value="Actualizar Inventario" styleclass="updateButton" />
+		
+	</apex:form>
+
+</apex:page>
